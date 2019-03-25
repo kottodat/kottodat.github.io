@@ -1,6 +1,6 @@
 ---
 layout: posts
-title: 블로깅 하는법 블로깅
+title: github에 jekyll설치하고 포스팅하기
 comment: true
 tags: [github][jekyll]
 ---
