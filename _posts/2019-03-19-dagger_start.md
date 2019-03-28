@@ -1,8 +1,8 @@
 ---
 layout: posts
-title: dagger2 시작하기
+title: [dagger2]dagger2 시작하기
 comment: true
-tags: [DI][dagget2][dependency injection]
+tags: [DI][dagget2]
 ---
 
 # [dagger2]dagger2 시작하기

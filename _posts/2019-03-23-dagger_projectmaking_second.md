@@ -2,11 +2,11 @@
 layout: posts
 title: 프로젝트 기반 다지기 - 1
 comment: true
-tags: [DI][dagget2][dependency injection]
+tags: [DI][dagget2]
 ---
 
 #Dagger2 적용하여 프로젝트 기반 다지기 - 1
-===
+
 ***
 ##### 1. Application을 대장으로! AppComponent생성하기
 
