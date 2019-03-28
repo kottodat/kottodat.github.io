@@ -1,49 +1,52 @@
 ---
 layout: posts
-title: 프로젝트 기반 다지기 - 3
+title: 프로젝트 기반 다지기 - 2
 comment: true
 tags: [DI][dagger2]
 ---
 
-#Dagger2 적용하여 프로젝트 기반 다지기 - 3
+#Dagger2 적용하여 프로젝트 기반 다지기 - 2
 
 ***
 
-##### DB도 추가해보자
+##### Activity와 Fragment를 몇 가지 추가하고 네트워크와 DB도 추가 해보도록 하자
+
+이번 포스팅에 추가되는 파일들을 어느 패키지에 어떻게 구성해야 하는지 고민을 많이 할 것 같아서
+
+추천하는 구성을 첨부한다.
+
+![di-4-1](/assets/di-4-1.png)
 
 
-##### 1. room 추가
+##### 1. retrofit 라이브러리 추가해보기
 
-room을 이용하여 로컬 데이터를 저장해보자
+안드로이드 스튜디오를 설치하면 안내해 주는 sunshine프로젝트에 보면 OpenWeather Api를 사용해서 통신하는 예제가 있으니
 
-#####1) 당연히 처음 할일은 그래들에 dependency 추가
+나도 OpenWeather api를 사용해서 통신 해보도록 하겠다.
+
+계정 만들고 키 받는건 알아서 하도록 하자
 
 
+#####1) 먼저 그래들에 dependency를 추가하자
+
+okhttp, retrofit, rxjava는 덤
 {% highlight language linenos %}
-<pre>
-<code>
-/// room
-def room_version = "2.1.0-alpha06"
+/// okhttp
+implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
 
-implementation 'androidx.room:room-runtime:$room_version'
-annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+// retrofit
+implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+implementation 'com.squareup.retrofit2:converter-moshi:2.3.0'
+implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
 
-// optional - Kotlin Extensions and Coroutines support for Room
-implementation "androidx.room:room-ktx:$room_version"
-
-// optional - RxJava support for Room
-implementation "androidx.room:room-rxjava2:$room_version"
-
-// optional - Guava support for Room, including Optional and ListenableFuture
-implementation "androidx.room:room-guava:$room_version"
-
-// Test helpers
-testImplementation "androidx.room:room-testing:$room_version"
-</code>
+// rxjava
+implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
+implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
+implementation 'com.cantrowitz:rxbroadcast:2.0.0'
 {% endhighlight %}
 
-</pre>
-#####2) Entity 생성
+#####2) response객체를 만들도록 하자
 
 [OpenWeather Api](https://openweathermap.org/current) 여기서 response샘플을 복사해서
 

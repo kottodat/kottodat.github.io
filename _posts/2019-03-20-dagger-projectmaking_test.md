@@ -2,7 +2,7 @@
 layout: posts
 title: [dagger2]dagger2 테스트 시작(dagger2 도입하는 이유)
 comment: true
-tags: [DI][dagget2][dependency injection]
+tags: [DI][dagger2]
 ---
 
 dagger2를 쓰는 이유에 맞게 커스텀 시작

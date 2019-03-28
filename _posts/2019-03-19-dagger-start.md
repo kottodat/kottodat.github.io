@@ -2,7 +2,7 @@
 layout: posts
 title: [dagger2]dagger2 시작하기
 comment: true
-tags: [DI][dagget2]
+tags: [DI][dagger2]
 ---
 
 # [dagger2]dagger2 시작하기
