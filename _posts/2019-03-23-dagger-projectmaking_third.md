@@ -1,13 +1,12 @@
 ---
 layout: posts
-title: 프로젝트 기반 다지기 - 3
+title: "[dagger2]프로젝트 기반 다지기 - 3"
 comment: true
-tags: [DI][dagger2]
+tags: [DI, dagger2]
 ---
 
-#Dagger2 적용하여 프로젝트 기반 다지기 - 3
-
-***
+Dagger2 적용하여 프로젝트 기반 다지기 - 3
+===
 
 ##### DB도 추가해보자
 
@@ -16,12 +15,10 @@ tags: [DI][dagger2]
 
 room을 이용하여 로컬 데이터를 저장해보자
 
-#####1) 당연히 처음 할일은 그래들에 dependency 추가
+**1) 당연히 처음 할일은 그래들에 dependency 추가**
 
-
+[공식 페이지](https://developer.android.com/jetpack/androidx/releases/room)에 있는 내용을 복붙했다.
 {% highlight language linenos %}
-<pre>
-<code>
 /// room
 def room_version = "2.1.0-alpha06"
 
@@ -39,10 +36,9 @@ implementation "androidx.room:room-guava:$room_version"
 
 // Test helpers
 testImplementation "androidx.room:room-testing:$room_version"
-</code>
+
 {% endhighlight %}
 
-</pre>
 #####2) Entity 생성
 
 [OpenWeather Api](https://openweathermap.org/current) 여기서 response샘플을 복사해서
@@ -341,5 +337,8 @@ NetworkModule에 들어있는 instance를 사용하니 재생성 하지 않게 �
 api key를 넣지 않아도 웹페이지 로드는 성공하고 내용이 실패라는 메세지가 뜨기 때문에
 
 성공 토스트가 뜰 것이다.
+
+[test](skrent://param?CUST_ID=201805160124,201812260343&CNTR_ID=201903120002)
+
 
 ---

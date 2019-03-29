@@ -1,21 +1,25 @@
 ---
 layout: posts
-title: [dagger2]dagger2 테스트 시작(dagger2 도입하는 이유)
+title: "[dagger2]flavors를 써서 프로젝트를 나누자"
 comment: true
-tags: [DI][dagger2]
+tags: [DI, dagger2]
 ---
 
-dagger2를 쓰는 이유에 맞게 커스텀 시작
+dagger2를 쓰는 이유에 맞게 프로젝트를 나눠보자
 ===
-***
+
 
 ##### 1. 우선 Iscream을 interface로 만들자
 
+<pre>
+<code>
 {% highlight language linenos %}
 interface Iscream {
     fun getName(): String
 }
 {% endhighlight %}
+</code>
+</pre>
 
 
 
@@ -31,8 +35,10 @@ interface Iscream {
 자세한 설정은 각자 알아서 하고 일단 최소한의 설정값은 아래 내용을 복붙하면 됩니다.
 
 아주 간단한 복붙용 설정값
-
+<pre>
+<code>
 {% highlight language linenos %}
+
 flavorDimensions "flavors"
 productFlavors
 {
@@ -47,8 +53,10 @@ productFlavors
 
     }
 }
-{% endhighlight %}
 
+{% endhighlight %}
+</code>
+</pre>
 
 당연히 dev와 prod폴더도 만들고 하위 패키지들도 생성해야하고
 

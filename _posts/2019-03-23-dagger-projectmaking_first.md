@@ -1,13 +1,13 @@
 ---
 layout: posts
-title: 프로젝트 기반 다지기 - 1
+title: "[dagger2]프로젝트 틀 만들기(1)"
 comment: true
-tags: [DI][dagger2]
+tags: [DI, dagger2]
 ---
 
-#Dagger2 적용하여 프로젝트 기반 다지기 - 1
+Application에 대거 입히기
+===
 
-***
 ##### 1. Application을 대장으로! AppComponent생성하기
 
 Application의 Context를 활용한 객체들이나 정적함수 등을 만들어서
@@ -19,13 +19,13 @@ MainActivity가 아닌 모든 객체들에게 적용 하도록 범위를 넓혀�
 **이번 포스팅에서 할일**
 - MyApplication생성
 - AppModule추가
-- CUComponent -> AppComponent로 변경
+- CUComponent삭제 -> AppComponent 추가
 - ActivityModule을 만들고 Activity마다 Module을 붙여준다.
 - Inject(주입) 요청한 객체가 생성되는 위치 변경
 
 Application클래스를 중심으로 돌아 가고 Activity나 module들은 서브모듈과 다른 클래스에서 주입 하도록 한다.
 
-[이번 포스팅 내용에 대한 자세한 내용은 이 링크를 타고 가서 한번 보고오자](https://rimduhui.tistory.com/57)
+[이번 포스팅에서 실습 할 내용에 대한 자세한 내용은 이 링크를 타고 가서 한번 보고오자](https://rimduhui.tistory.com/57)
 
 ##### 1) AppModule 생성
 
@@ -43,7 +43,7 @@ internal object AppModule {
 {% endhighlight %}
 
 ##### 2) AppComponent 생성
-- AndroidSupportInjectionModule이라는건 내가 모르는거지만 맨 위에 한줄 추가
+- AndroidSupportInjectionModule을 모듈에 추가
 - AppModule을 만들었으니 추가해주고
 - HaagendazsModule은 삭제한다.
 - AndroidInjector라는 녀석을 상속받도록 하고
