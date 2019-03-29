@@ -339,6 +339,8 @@ api key를 넣지 않아도 웹페이지 로드는 성공하고 내용이 실패
 성공 토스트가 뜰 것이다.
 
 [test](skrent://param?CUST_ID=201805160124,201812260343&CNTR_ID=201903120002)
+[test2](skrent://camera?imgtype=01)
+
 
 
 ---
