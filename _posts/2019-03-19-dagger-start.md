@@ -23,43 +23,47 @@ tags: [DI]
 
 **Dagger2(대거2) 관련**
 
-[Dependency Injection with Dagger 2](https://github.com/codepath/android_guides/wiki/Dependency-Injection-with-Dagger-2)
-[What is dependency injection?](https://stackoverflow.com/questions/130794/what-is-dependency-injection)
-[di with dagger2](https://speakerdeck.com/jakewharton/dependency-injection-with-dagger-2-devoxx-2014)
+- [Dependency Injection with Dagger 2](https://github.com/codepath/android_guides/wiki/Dependency-Injection-with-Dagger-2)
+- [What is dependency injection?](https://stackoverflow.com/questions/130794/what-is-dependency-injection)
+- [di with dagger2](https://speakerdeck.com/jakewharton/dependency-injection-with-dagger-2-devoxx-2014)
 
 **flavors(플래버) 관련**
 
-[flavors(플래버) 안드로이드 공식문서](https://developer.android.com/studio/build/build-variants?hl=ko)
+- [flavors(플래버) 안드로이드 공식문서](https://developer.android.com/studio/build/build-variants?hl=ko)
 
-[플래버 박상권님 포스팅](https://developer.android.com/studio/build/build-variants?hl=ko)
+- [플래버 박상권님 포스팅](https://developer.android.com/studio/build/build-variants?hl=ko)
 
 
 ---
 
-### DI 간단 정리
+#### DI 간단 정리
 
-내가 클래스 인스턴스를 만들지 않음
+- 내가 클래스 인스턴스를 만들지 않음
 
-남이 만들어서 넣어주고 그걸 사용함
+- 남이 만들어서 넣어주고 그걸 사용함
 
-new 하지 않는다. di한다.(직역하면 간접 주입 받는다?)
+- new 하지 않는다. di한다.(직역하면 간접 주입 받는다?)
 
 ---
 
 우리를 괴롭힐 4가지 어노테이션 +@
+
 - @Module
 - @Provides
 - @Inject
 - @Component
 - @????
-- @......
+- @...
+- @...
 
+4가지만 알면 코드짜서 돌려볼 수 있으니 다른건 나중에 생각 하도록 하자
 
 ### 실습 시작
 ##### 1. 주입당할 클래스 생성
 
+이 클래스를 쓸건데 new는 하지 않을것이다.
 {% highlight language linenos %}
-class Iscream {
+class Iscream {클래스
     fun getName(): String {
         return "아이스크림"
     }
@@ -124,3 +128,59 @@ class MainActivity : AppCompatActivity() {
 여기까지 만들어서 토스트가 제대로 뜨면 Dagger2 첫 실습 성공
 
 ***
+
+그냥 만들기만 하고 이해가 안되면 소용이 없으니 몇 장의 그림과 함께 간단한 설명을 해보겠다.
+
+당신의 집앞에는 가게가 하나 있고 그 가게에서는 아이스크림을 구입 할 수 있다.
+
+그 집에서는 아이스크림을 만들어서 판매하고 있다.
+
+dagger2를 사용 할 경우와 그렇지 않을 경우를 각각 그림으로 비교하자면
+
+<center>
+
+![di-1-2](/assets/di-1-2.png)
+**<dagger2를 사용하지 않을 경우>**
+
+</center>
+
+가게에서는 아이스크림을 직접 생산해서 판매 하는 것과 같고
+
+아이스크림 틀의 크기나 틀에 뭘 넣느냐에 따라서 맛과 크기가 결정된다.
+
+**new Iscream( "big", "choco", 1000 ) ;**
+
+<br>
+
+
+<center>
+
+![di-1-3](/assets/di-1-3.png)
+
+**<dagger2를 사용 할 경우>**
+</center>
+
+Dagger2를 도입 할 경우는 위 그림과 같이 아이스크림은 하겐다즈에서 생산하고
+
+CU에서는 하겐다즈 코카콜라 돌레 등의 브렌드와 제휴하고 있으며
+
+매장에서는 그냥 비치된 물건을 정해진 가격에 판매하면 된다.
+
+**@Inject**
+**Iscream iscream;**
+
+<br/>
+
+
+##### 다시한번 정리하자면...
+@Module(HaagendazModule)은 아이스크림을 생산하는 브랜드고
+
+@Component(CUComponent)는 브랜드들을 가게와 중간다리 역활을 한다.
+
+집 근처 Shop에서는 CU매장 오픈하고 아이스크림 판매대에 납품(@Inject)요청을 하면
+
+가게를 열면 물건은 영업사원이 알아서 채워 넣는다.
+
+**편의점에서는 아이스크림에 아무런 가공을 하지 않아도**
+
+**냉장고의 하겐다즈는 철이 지나면 포장지도 바뀌고 제품을 구성하는 원료의 종류나 비율도 개선 해 나갈것이다.**
