@@ -167,12 +167,13 @@ class ShopActivity : AppCompatActivity() {
 
 dagger2를 사용 할 경우와 그렇지 않을 경우를 각각 그림으로 비교하자면
 
-<center>
+
 
 ![di-1-2](/assets/di-1-2.png)
+
 **<dagger2를 사용하지 않을 경우>**
 
-</center>
+
 
 가게에서는 아이스크림을 직접 생산해서 판매 하는 것과 같고
 
@@ -183,12 +184,12 @@ dagger2를 사용 할 경우와 그렇지 않을 경우를 각각 그림으로 �
 <br>
 
 
-<center>
+
 
 ![di-1-3](/assets/di-1-3.png)
 
 **<dagger2를 사용 할 경우>**
-</center>
+
 
 Dagger2를 도입 할 경우는 위 그림과 같이 아이스크림은 하겐다즈에서 생산하고
 
