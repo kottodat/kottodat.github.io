@@ -4,8 +4,10 @@ title: "[dagger2]dagger2 시작하기"
 comment: true
 tags: [DI]
 ---
-[dagger2]dagger2 시작하기
-====
+
+#[dagger2]dagger2 시작하기
+
+
 
 
 ### 시작하기 전에.....
@@ -59,11 +61,30 @@ tags: [DI]
 4가지만 알면 코드짜서 돌려볼 수 있으니 다른건 나중에 생각 하도록 하자
 
 ### 실습 시작
+
+시작전에 먼저 gradle에 dependency추가 등의 작업이 필요하다.
+
+먼저 상단에 아래와 같이 한줄 추가해주고
+{% highlight language linenos %}
+apply plugin: 'kotlin-kapt'
+{% endhighlight %}
+
+dependencies에는
+
+아래와 같이 추가해 준다.
+{% highlight language linenos %}
+implementation 'com.google.dagger:dagger-android:2.21'
+implementation 'com.google.dagger:dagger-android-support:2.21'
+kapt 'com.google.dagger:dagger-android-processor:2.21'
+
+kapt 'com.google.dagger:dagger-compiler:2.21'
+{% endhighlight %}
+
 ##### 1. 주입당할 클래스 생성
 
-이 클래스를 쓸건데 new는 하지 않을것이다.
+이 클래스를 만드는데 new는 하지 않을것이다(물론 kotlin이라 new키워드는 원래 쓰지 않는다.)
 {% highlight language linenos %}
-class Iscream {클래스
+class Iscream {
     fun getName(): String {
         return "아이스크림"
     }
@@ -88,17 +109,26 @@ class HaagendazsModule {
 
 ##### 3. 주입 요청한 곳에 모듈을 연결시켜주는 컴포넌트
 
-##### <font color=FF0000>\*주의\* inject의 인자는 꼭 MainActivity처럼 정확히 명시해야함 AppCompatActivity같은거 넣으면 안된다.</font>
+##### <font color=FF0000>\*주의\* inject의 인자는 꼭 ShopActivity 정확히 명시해야함 AppCompatActivity같은거 넣으면 안된다.</font>
 
 @Component는 클래스 위에 붙여주고 어떤 모듈들을 연결시켜 줄 것인지도 적어줍니다.
 
 {% highlight language linenos %}
 @Component(modules = [HaagendazsModule::class])
 interface CUComponent {
-    fun inject(activity: MainActivity)
+    fun inject(activity: ShopActivity)
 
 }
 {% endhighlight %}
+
+
+---
+
+여기서 한번 빌드할것
+
+빌드하면 DaggerCUComponent 클래스가 생성된다.
+
+---
 
 ##### 4. 주입을 요청
 
@@ -107,7 +137,7 @@ interface CUComponent {
 메소드를 호출해서 값이 제대로 얻어지는지 로그를 찍어봅니다.
 
 {% highlight language linenos %}
-class MainActivity : AppCompatActivity() {
+class ShopActivity : AppCompatActivity() {
 
     @Inject
     lateinit var iscream: Iscream
@@ -148,7 +178,7 @@ dagger2를 사용 할 경우와 그렇지 않을 경우를 각각 그림으로 �
 
 아이스크림 틀의 크기나 틀에 뭘 넣느냐에 따라서 맛과 크기가 결정된다.
 
-**new Iscream( "big", "choco", 1000 ) ;**
+**new Iscream( "big", "choco", 2300 ) ;**
 
 <br>
 
@@ -175,12 +205,12 @@ CU에서는 하겐다즈 코카콜라 돌레 등의 브렌드와 제휴하고 �
 ##### 다시한번 정리하자면...
 @Module(HaagendazModule)은 아이스크림을 생산하는 브랜드고
 
-@Component(CUComponent)는 브랜드들을 가게와 중간다리 역활을 한다.
+@Component(CUComponent)는 브랜드들과 매장 사이의 중간다리 역활을 한다.
 
 집 근처 Shop에서는 CU매장 오픈하고 아이스크림 판매대에 납품(@Inject)요청을 하면
 
 가게를 열면 물건은 영업사원이 알아서 채워 넣는다.
 
-**편의점에서는 아이스크림에 아무런 가공을 하지 않아도**
+**편의점에서는 아이스크림에 아무런 가공을 하지 않아도 냉장고에 하겐다즈 매대만 만들어 놓으면**
 
-**냉장고의 하겐다즈는 철이 지나면 포장지도 바뀌고 제품을 구성하는 원료의 종류나 비율도 개선 해 나갈것이다.**
+**영업 사원이 물건을 채워 넣을거고, 철이 지나면 포장지도 바뀌고 제품을 구성하는 원료의 종류나 비율도 개선 해 나갈것이다.**

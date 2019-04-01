@@ -1,11 +1,11 @@
 ---
 layout: posts
-title: "[dagger2]flavors를 써서 프로젝트를 나누자"
+title: "[dagger2]flavors적용 프로젝트 나누기"
 comment: true
 tags: [DI, dagger2]
 ---
 
-dagger2를 쓰는 이유에 맞게 프로젝트를 나눠보자
+[dagger2]flavors를 써서 프로젝트 나누기
 ===
 
 

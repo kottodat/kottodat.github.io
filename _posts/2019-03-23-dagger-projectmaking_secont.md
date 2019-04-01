@@ -2,7 +2,7 @@
 layout: posts
 title: 덩치를 키워보자
 comment: true
-tags: [DI][dagget2][dependency injection]
+tags: [DI, dagget2]
 ---
 
 # 프로젝트 기본요소 구성해보기
