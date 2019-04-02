@@ -10,11 +10,11 @@ Application에 대거 입히기
 
 ##### 1. Application을 대장으로! AppComponent생성하기
 
-Application의 Context를 활용한 객체들이나 정적함수 등을 만들어서
+이제부터 차차 Application의 Context를 활용한 객체들이나 정적함수 등을 만드는 것을 시작으로
 
-프로젝트 전반적으로 활용 하도록 하고
+프로젝트 전반적으로 활용 하도록 하는 틀을 만들어 가도록 하죠
 
-MainActivity가 아닌 모든 객체들에게 적용 하도록 범위를 넓혀가보도록 하죠
+ShopActivity 아닌 모든 객체들에게 적용 하도록 범위를 넓혀가보도록 해봅시다.
 
 **이번 포스팅에서 할일**
 - MyApplication생성
@@ -23,9 +23,62 @@ MainActivity가 아닌 모든 객체들에게 적용 하도록 범위를 넓혀�
 - ActivityModule을 만들고 Activity마다 Module을 붙여준다.
 - Inject(주입) 요청한 객체가 생성되는 위치 변경
 
+---
+
+### 이번 포스팅에서 추가로 적용하는 내용중 핵심 1
+
 Application클래스를 중심으로 돌아 가고 Activity나 module들은 서브모듈과 다른 클래스에서 주입 하도록 한다.
 
-[이번 포스팅에서 실습 할 내용에 대한 자세한 내용은 이 링크를 타고 가서 한번 보고오자](https://rimduhui.tistory.com/57)
+자세한 내용은 [이 링크](https://rimduhui.tistory.com/57)를 타고 가서 한번 보고오자
+
+요약하자면 **액티비티마다 inject하는 코드를 공통으로 넣기 싫어서** 정도가 되겠다.
+
+---
+
+### 이번 포스팅에서 추가로 적용하는 내용중 핵심 2
+
+그리고 요 세가지에 대해서도 이야기 안하고 넘어갈 수가 없다.
+
+- DaggerApplication
+- AndroidInjector
+- AndroidSupportInjectionModule
+
+Application클래스는 **[DaggerApplication]** 을 상속받도록 해야하고
+{% highlight language linenos %}
+open class MyApplication : DaggerApplication()
+{% endhighlight %}
+
+Component는 **[AndroidInjector< T >]** 를 상속받고
+(* 여기서 **T는 내가만든 Application클래스**)
+{% highlight language linenos %}
+interface AppComponent : AndroidInjector< MyApplication >
+{% endhighlight %}
+
+Component클래스의 상단에 모듈 명시하는 곳에 **[AndroidSupportInjectionModule]** 를 추가해준다.
+{% highlight language linenos %}
+@Component(modules = [ AndroidSupportInjectionModule::class,
+{% endhighlight %}
+
+
+[이 링크](https://android.jlelse.eu/new-android-injector-with-dagger-2-part-3-fe3924df6a89)에 가보면 설명이 있는데
+
+번역이나 이해가 귀찮은 사람들을 위해 간단하게 요약하자면
+
+상단에 있는 소스코드 영역 세개를 보면 점점 소스코드가 줄어드는 것을 볼 수가 있다.
+
+**요약하면 대거2 써서 프래그먼트 다루다보면 액티비티마다 해줘야 하는 작업이 있는데 그걸 자동으로 해준다.**
+
+---
+
+**아래 적용한 예제코드가 다 있으니 실습하면서 보도록 하자**
+
+**잊어버렸을까 해서 다시 한번 적는데**
+
+**Inject요청 할 객체 -> 모듈 -> 컴포넌트 순으로 만든다.**
+
+##### 0) Inject요청 할 클래스 생성
+
+Context를 주입할거라 Context클래스는 따로 만들지 않는다.
 
 ##### 1) AppModule 생성
 
@@ -84,13 +137,15 @@ open class MyApplication : DaggerApplication() {
 }
 {% endhighlight %}
 
+**manifest에 application클래스 등록하는거 잊지말자**
+
 
 ##### 4) 메인 액티비티 수정
 
 - component 만들어서 주입하는 코드도 액티비티마다 들어있고 보일러플레이트 코드 취급한다. 삭제한다.
 
 {% highlight language linenos %}
-class MainActivity : DaggerAppCompatActivity() {
+class ShopActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var iscream: Iscream
@@ -113,24 +168,15 @@ class MainActivity : DaggerAppCompatActivity() {
 ##### 5) ActivityModule를 만든다.
 
 - Activity마다 모듈을 만들어줄건데 그 모듈들을 관리할 모듈을 만든다.
-- MainActivityModule을 만들어서 MainActivity가 참조 할 수 있도록 한다.
+- ShopActivityModule을 만들어서 ShopActivity 참조 할 수 있도록 한다.
 - Iscream을 주입시켜본다.
 
 {% highlight language linenos %}
 @Module
-interface ActivityMoudle
-{
-    @ContributesAndroidInjector(modules = [MainActivityModule::class])
-    fun mainActivity(): MainActivity
-}
-{% endhighlight %}
-
-{% highlight language linenos %}
-@Module
-abstract class  MainActivityModule {
+abstract class  ShopActivityModule {
 
     @Binds
-    abstract fun providesAppCompatActivity(mainActivity: MainActivity): AppCompatActivity
+    abstract fun providesAppCompatActivity(shopActivity: ShopActivity): AppCompatActivity
 
     @Module
     companion object {
@@ -143,13 +189,22 @@ abstract class  MainActivityModule {
 }
 {% endhighlight %}
 
+{% highlight language linenos %}
+@Module
+interface ActivityBindingMoudle
+{
+    @ContributesAndroidInjector(modules = [ShopActivityModule::class])
+    fun shopActivity(): ShopActivity
+}
+{% endhighlight %}
+
 만들었으면 AppComponent에 ActivityModule를 추가해주자
 {% highlight language linenos %}
 @Singleton
 @Component(modules = [
     AndroidSupportInjectionModule::class,
     AppModule::class,
-    ActivityMoudle::class
+    ActivityBindingMoudle::class
 ])
 interface AppComponent : AndroidInjector<MyApplication> {
 {% endhighlight %}
@@ -161,16 +216,16 @@ interface AppComponent : AndroidInjector<MyApplication> {
 
 이전 포스팅과 다른점은 HaagendazsModule에서 주입받는게 아니라
 
-MainActivityModule에서 주입받는다는건데 추상클래스에 저렇게 박아놓는건 좋지 않으니
+ShopActivityModule에서 주입받는다는건데
 
-dev와 prod에서 각각 지기 입맛대로 주입시키기 위해 좀더 수정을 하자
+HaagendazsModule을 참조해서 가져 오도록 수정 해보자.
 
 {% highlight language linenos %}
 @Module(includes = [HaagendazsModule::class]) /// 이부분이 추가
-abstract class  MainActivityModule {
+abstract class  ShopActivityModule {
 
     @Binds
-    abstract fun providesAppCompatActivity(mainActivity: MainActivity): AppCompatActivity
+    abstract fun providesAppCompatActivity(shopActivity: ShopActivity): AppCompatActivity
 
     /// 아이스크림 만드는 코드는 삭제했다.
 

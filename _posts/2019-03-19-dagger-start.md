@@ -14,17 +14,16 @@ tags: [DI]
 
 **dagger2를 배우는 지인들을 위해 쓰고있는 글입니다.**
 
-이미 좋은 글들 아주아주 많은데 쉽게 실습 해볼 수 있는 포스팅이 찾기 힘들어서
-
-대거2 적용이 너무 어렵다고 하는 분들을 위해 **실습 위주의 내용으로 포스팅** 합니다.
+**많이 간소화된 내용으로 실습 해볼 수 있는 내용으로 쓰는 포스팅 입니다.**
 
 **dagger2 관련 다른 글 몇개는 보고 오시고 TDD나 flavors를 모르면 좀 곤란합니다.**
 
-추가로 아래 링크들은 출퇴근 하면서 대충 한번 보시는 것을 강추합니다.
+**추가로 아래 링크들은 출퇴근 하면서 대충 한번 보시는 것을 강추합니다.**
 
 
 **Dagger2(대거2) 관련**
 
+- [New Android Injector with Dagger 2](https://medium.com/@iammert/new-android-injector-with-dagger-2-part-1-8baa60152abe)
 - [Dependency Injection with Dagger 2](https://github.com/codepath/android_guides/wiki/Dependency-Injection-with-Dagger-2)
 - [What is dependency injection?](https://stackoverflow.com/questions/130794/what-is-dependency-injection)
 - [di with dagger2](https://speakerdeck.com/jakewharton/dependency-injection-with-dagger-2-devoxx-2014)
@@ -45,6 +44,8 @@ tags: [DI]
 - 남이 만들어서 넣어주고 그걸 사용함
 
 - new 하지 않는다. di한다.(직역하면 간접 주입 받는다?)
+
+- **보통 Inject = '주입' 이라고 번역하는 듯 하다.**
 
 ---
 
@@ -79,6 +80,23 @@ kapt 'com.google.dagger:dagger-android-processor:2.21'
 
 kapt 'com.google.dagger:dagger-compiler:2.21'
 {% endhighlight %}
+
+
+---
+
+#### 순서를 잘 기억해 두도록 하자
+
+아래와 같이 세가지를 준비한다.
+
+1) [Inject요청 할 객체]
+2) [모듈]
+3) [컴포넌트]
+
+그 다음
+
+1) [빌드] (빌드를 해야 Dagger{컴포넌트명} 클래스가 만들어진다.)
+2) [Inject요청 할 곳에서 Dagger{컴포넌트명}.inject()호출]
+3) @Inject를 붙여서 변수 선언
 
 ##### 1. 주입당할 클래스 생성
 
