@@ -35,6 +35,10 @@ tags: [DI]
 - [플래버 박상권님 포스팅](https://developer.android.com/studio/build/build-variants?hl=ko)
 
 
+
+
+작업하면서 만든 **[소스코드 링크(github)](https://github.com/kottodat/dagger_test)** 를 받아서 보면서 하는 것을 추천
+
 ---
 
 #### DI 간단 정리
