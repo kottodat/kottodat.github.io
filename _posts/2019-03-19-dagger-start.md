@@ -88,7 +88,7 @@ kapt 'com.google.dagger:dagger-compiler:2.21'
 
 ---
 
-#### 순서를 잘 기억해 두도록 하자
+### 순서를 잘 기억해 두도록 하자
 
 아래와 같이 세가지를 준비한다.
 
@@ -102,7 +102,7 @@ kapt 'com.google.dagger:dagger-compiler:2.21'
 2) [Inject요청 할 곳에서 Dagger{컴포넌트명}.inject()호출]
 3) @Inject를 붙여서 변수 선언
 
-##### 1. 주입당할 클래스 생성
+### 1. 주입당할 클래스 생성
 
 이 클래스를 만드는데 new는 하지 않을것이다(물론 kotlin이라 new키워드는 원래 쓰지 않는다.)
 {% highlight language linenos %}
@@ -113,7 +113,7 @@ class Iscream {
 }
 {% endhighlight %}
 
-##### 2. 인스턴트 만들어줄 모듈
+### 2. 인스턴트 만들어줄 모듈
 
 @Modlue은 클래스 위에
 
@@ -129,9 +129,7 @@ class HaagendazsModule {
 }
 {% endhighlight %}
 
-##### 3. 주입 요청한 곳에 모듈을 연결시켜주는 컴포넌트
-
-##### <font color=FF0000>\*주의\* inject의 인자는 꼭 ShopActivity 정확히 명시해야함 AppCompatActivity같은거 넣으면 안된다.</font>
+### 3. 주입 요청한 곳에 모듈을 연결시켜주는 컴포넌트
 
 @Component는 클래스 위에 붙여주고 어떤 모듈들을 연결시켜 줄 것인지도 적어줍니다.
 
@@ -143,6 +141,9 @@ interface CUComponent {
 }
 {% endhighlight %}
 
+{: style="color:#FF0000; "}
+\*주의\* inject의 인자는 꼭 ShopActivity 정확히 해당 클래스명을 넣어야함 AppCompatActivity같이 부모 클래스 넣으면 에러난다.
+{: }
 
 ---
 
@@ -152,7 +153,7 @@ interface CUComponent {
 
 ---
 
-##### 4. 주입을 요청
+### 4. 주입을 요청
 
 @Inject는 싶은 객체위에 선언하고 Component를 만들고 inject()를 호출하면 준비 완료
 
@@ -193,8 +194,9 @@ dagger2를 사용 할 경우와 그렇지 않을 경우를 각각 그림으로 �
 
 ![di-1-2](/assets/di-1-2.png)
 
+{: style="text-align: center;"}
 **< dagger2를 사용하지 않을 경우 >**
-
+{: }
 
 
 가게에서는 아이스크림을 직접 생산해서 판매 하는 것과 같고
@@ -210,8 +212,9 @@ dagger2를 사용 할 경우와 그렇지 않을 경우를 각각 그림으로 �
 
 ![di-1-3](/assets/di-1-3.png)
 
+{: style="text-align: center;"}
 **< dagger2를 사용 할 경우 >**
-
+{: }
 
 Dagger2를 도입 할 경우는 위 그림과 같이 아이스크림은 하겐다즈에서 생산하고
 
@@ -225,7 +228,7 @@ CU에서는 하겐다즈 코카콜라 돌레 등의 브렌드와 제휴하고 �
 <br/>
 
 
-##### 다시한번 정리하자면...
+#### 다시한번 정리하자면...
 @Module(HaagendazModule)은 아이스크림을 생산하는 브랜드고
 
 @Component(CUComponent)는 브랜드들과 매장 사이의 중간다리 역활을 한다.
